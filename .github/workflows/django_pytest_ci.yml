@@ -28,6 +28,8 @@ jobs:
                  --cov=apps \
                  --cov-report=term-missing \
                  --cov-report=html:simulador_pytest/apps/tests/reports/htmlcov
+      - name: Run tests and generate coverage
+        run: pytest --cov=. --cov-report=xml
       - name: Install Codecov
         run: pip install codecov==2.1.13
       - name: Upload coverage report
@@ -39,3 +41,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          flags: unittests
+          fail_ci_if_error: true
