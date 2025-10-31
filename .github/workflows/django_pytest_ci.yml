@@ -23,11 +23,7 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-django factory_boy faker pytest-mock pytest-cov
       - name: Run Pytest with Coverage
-        run: |
-          pytest --ds=simulador_pytest.settings \
-                 --cov=apps \
-                 --cov-report=term-missing \
-                 --cov-report=html:simulador_pytest/apps/tests/reports/htmlcov
+        run: pytest --ds=simulador_pytest.settings --cov=apps --cov-report=term-missing --cov-report=html:simulador_pytest/apps/tests/reports/htmlcov
       - name: Run tests and generate coverage
         run: pytest --cov=. --cov-report=xml
       - name: Install Codecov
