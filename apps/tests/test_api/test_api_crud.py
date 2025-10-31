@@ -1,5 +1,4 @@
 import pytest
-from apps.usuarios import models
 
 
 @pytest.mark.django_db
