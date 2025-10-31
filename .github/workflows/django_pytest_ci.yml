@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.13.7
+          python-version: "3.13.7"
 
       - name: Install dependencies
         run: |
@@ -24,19 +24,7 @@ jobs:
           pip install pytest pytest-django factory_boy faker pytest-mock pytest-cov
       - name: Run Pytest with Coverage
         run: pytest --ds=simulador_pytest.settings --cov=apps --cov-report=term-missing --cov-report=html:simulador_pytest/apps/tests/reports/htmlcov
-      - name: Run tests and generate coverage
-        run: pytest --cov=. --cov-report=xml
-      - name: Install Codecov
-        run: pip install codecov==2.1.13
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: simulador_pytest/apps/tests/reports/htmlcov/
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./reports/coverage.xml
-          flags: unittests
-          fail_ci_if_error: true
