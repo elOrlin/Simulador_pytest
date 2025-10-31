@@ -22,9 +22,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-django factory_boy faker pytest-mock pytest-cov
-      - name: Run Pytest with Coverage
-        run: pytest --ds=simulador_pytest.settings --cov=apps --cov-report=term-missing --cov-report=html:simulador_pytest/apps/tests/reports/htmlcov
-      - name: Upload coverage reports to Codecov
+      - name: Run tests with coverage
+        run: pytest --ds=simulador_pytest.settings --cov=apps --cov-report=term-missing --cov-report=xml
+
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
