@@ -62,11 +62,11 @@ WSGI_APPLICATION = 'simulador_pytest.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_DB"],         # Obligatorio
-        "USER": os.environ["POSTGRES_USER"],       # Obligatorio
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"], # Obligatorio
-        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),  # Default localhost
-        "PORT": os.environ.get("POSTGRES_PORT", "5432"),       # Default 5432
+        "NAME": os.environ["POSTGRES_DB"],
+        "USER": os.environ["POSTGRES_USER"],
+        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
 }
 
