@@ -10,6 +10,6 @@ exclude =
     .git,
     .github
 ignore =
-    E501,  # líneas largas (ya controladas por max-line-length)
-    W503,  # saltos de línea en operadores
-    F403,  # imports con *
+    E501
+    W503
+    F403
