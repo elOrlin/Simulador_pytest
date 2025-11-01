@@ -73,7 +73,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
       - name: Trigger Render Deploy
-        uses: render-examples/deploy-action@v1
+        uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           api_key: ${{ secrets.RENDER_API_KEY }}
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          wait-for-success: true
