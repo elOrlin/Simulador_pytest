@@ -1,5 +1,4 @@
 name: Django Pytest CI
-
 on:
   push:
     branches: [master]
@@ -9,13 +8,30 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user_dev
+          POSTGRES_PASSWORD: girls754
+          POSTGRES_DB: dev_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13.7"
+          python-version: 3.12
       - uses: actions/cache@v4
         with:
           path: |
@@ -28,9 +44,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-django factory_boy faker pytest-mock pytest-cov
-      - name: Run tests with coverage
-        run: pytest --ds=simulador_pytest.settings --cov=apps --cov-report=term-missing --cov-report=xml
 
+      - name: Run migrations
+        env:
+          POSTGRES_DB: dev_db
+          POSTGRES_USER: user_dev
+          POSTGRES_PASSWORD: girls754
+          POSTGRES_HOST: localhost
+        run: |
+          python manage.py makemigrations
+          python manage.py migrate
+
+      - name: Run tests
+        env:
+          POSTGRES_DB: dev_db
+          POSTGRES_USER: user_dev
+          POSTGRES_PASSWORD: girls754
+          POSTGRES_HOST: localhost
+        run: |
+          pytest --ds=simulador_pytest.settings --cov=apps --cov-report=term-missing --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
