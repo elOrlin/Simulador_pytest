@@ -75,4 +75,3 @@ def test_login_incorrecto(api_client, usuario_activo):
 def test_login_usuario_no_existente(api_client):
     response = api_client.post("/api/login/", {"email": "no@existe.com", "password": "test"})
     assert response.status_code == 404
-
