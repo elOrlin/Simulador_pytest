@@ -76,6 +76,5 @@ jobs:
       - name: Trigger Render Deploy
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          wait-for-success: true
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
