@@ -24,5 +24,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
+  frontend:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: >
+      sh -c "npm install && npm start"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
 volumes:
   postgres_data:
