@@ -36,5 +36,18 @@ services:
     depends_on:
       - web
 
+  registry:
+    image: registry:2
+    container_name: registro_pytest
+    ports:
+      - "5000:5000"
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+    volumes:
+      - ./data:/var/lib/registry
+    restart: always
+    depends_on:
+      - db
+
 volumes:
   postgres_data:
